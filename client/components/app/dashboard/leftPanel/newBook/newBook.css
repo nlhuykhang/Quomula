@@ -1,0 +1,25 @@
+.new-book .input-field .prefix {
+  color: #c8e6c9;
+}
+
+.new-book .input-field .prefix.active {
+  color: #84ffff;
+}
+
+.new-book .input-field input[type=text] + label {
+  color: #c8e6c9;
+}
+
+.new-book .input-field input[type=text]:focus + label {
+  color: #84ffff;
+}
+
+.new-book .input-field input[type=text] {
+  border-bottom: 1px solid #c8e6c9;
+  box-shadow: 0 1px 0 0 #c8e6c9;
+}
+
+.new-book .input-field input[type=text]:focus {
+  border-bottom: 1px solid #84ffff;
+  box-shadow: 0 1px 0 0 #84ffff;
+}

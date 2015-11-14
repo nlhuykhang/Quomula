@@ -1,0 +1,3 @@
+[submodule "packages/materialize"]
+	path = packages/materialize
+	url = git@github.com:Dogfalo/materialize.git

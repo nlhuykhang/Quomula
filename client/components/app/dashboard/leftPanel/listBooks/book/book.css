@@ -1,0 +1,10 @@
+#list-books .collection-item.book-item {
+  background-color: #29b6f6;
+  color: white;
+  border: 0px;
+}
+
+#list-books .collection-item.book-item.active {
+  background-color: #8A00B5;
+  border: 2px;
+}

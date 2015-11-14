@@ -1,0 +1,5 @@
+#right-panel form button[type=submit] {
+  height: 90px;
+  line-height: 90px;
+  margin-left: 25px;
+}
