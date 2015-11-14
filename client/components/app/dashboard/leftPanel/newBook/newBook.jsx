@@ -8,8 +8,8 @@ NewBook = React.createClass({
         FlowRouter.go('Book', {_id});
       }
     });
-    // this.refs.bookName.value = '';
-    // this.refs.bookName.dispatchEvent(new Event('blur'));
+    this.refs.bookName.value = '';
+    this.refs.bookName.blur();
   },
   render(){
     return (

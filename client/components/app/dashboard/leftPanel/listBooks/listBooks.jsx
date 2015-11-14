@@ -1,17 +1,18 @@
-ListBooks = React.createClass({
+
+ListBooksProps = _.extend({
   mixins: [ReactMeteorData],
   getMeteorData(){
-    let data = {
-      books: []
-    };
     let handle = Meteor.subscribe('book/list');
-    if(handle.ready()){
-      data.books = Books.find().fetch();
-    }
-    return data;
+    return {
+      isReady: handle.ready(),
+      books: Books.find().fetch()
+    };
   },
   renderBook(book){
     return <Book key={book._id} data={book}/>;
+  },
+  renderBooks(){
+    return this.data.books.map(this.renderBook);
   },
   render(){
     return (
@@ -21,10 +22,12 @@ ListBooks = React.createClass({
             <h4>List Books</h4>
           </div>
           <div style={{textAlign: 'left'}}>
-            {this.data.books.map(this.renderBook)}
+            {this.data.isReady ? this.renderBooks() : this.renderLoading()}
           </div>
         </div>
       </div>
     );
   }
-});
+}, ComponentSkeleton);
+
+ListBooks = React.createClass(ListBooksProps);

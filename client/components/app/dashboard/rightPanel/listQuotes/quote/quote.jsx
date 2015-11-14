@@ -1,0 +1,5 @@
+Quote = React.createClass({
+  render(){
+    
+  }
+});

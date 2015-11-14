@@ -1,4 +1,14 @@
-ListQuotes = React.createClass({
+ListQuotesProps = _.extend({
+  mixins: [ReactMeteorData],
+  getMeteorData(){
+    // let handle = Meteor.subscribe('quote/list');
+
+    return {
+      // isReady: handle.ready(),
+      quotes: Quotes.find().fetch()
+    };
+  },
+
   render(){
     return (
       <div>
@@ -6,4 +16,6 @@ ListQuotes = React.createClass({
       </div>
     );
   }
-});
+}, ComponentSkeleton);
+
+ListQuotes = React.createClass(ListQuotesProps);
