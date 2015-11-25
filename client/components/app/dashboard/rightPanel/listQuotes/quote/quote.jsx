@@ -1,55 +1,86 @@
 Quote = React.createClass({
-  // <li className="collection-item">
-  //   <div>
-  //     {this.props.data.content}
-  //     <a href="#!" className="secondary-content">
-  //       <i className="material-icons">send</i>
-  //     </a>
-  //   </div>
-  // </li>
   mouseEnter(){
-    this.refs.controlIcons.style.display = 'inline';
+    this.setState({
+      isShowControlIcons: true
+    });
   },
   mouseLeave(){
-    this.refs.controlIcons.style.display = 'none';
+    this.setState({
+      isShowControlIcons: false
+    });
+  },
+  getInitialState(){
+    return {
+      isShowControlIcons: false,
+      isShowEditForm: false
+    };
+  },
+  clickEditHandler(){
+    this.setState({
+      isShowEditForm: true,
+      isShowControlIcons: false
+    });
+  },
+  clickDeleteHandler(){
+    Quotes.remove(this.props.data._id);
+  },
+  updateQuoteHandler(e){
+    e.preventDefault();
+    Quotes.update(this.props.data._id, {
+      $set: {
+        content: this.refs.quote.value.trim()
+      }
+    }, (err) => {
+      if(!err){
+        this.setState({
+          isShowEditForm: false
+        });
+      }
+    });
+  },
+  renderContentWithLineBreak(content){
+    var list = content.split(/\n/);
+    return list.map(function(doc){
+      return (
+        <span key={Math.random()}>
+          {doc}
+          <br/>
+        </span>
+      );
+    });
+  },
+  renderContentOrEditForm(){
+    let content = this.props.data.content;
+    if(this.state.isShowEditForm) {
+      return (
+        <form onSubmit={this.updateQuoteHandler}>
+          <div className="input-field">
+            <textarea defaultValue={content}
+              ref="quote" id="textarea2" className="materialize-textarea validate"></textarea>
+          </div>
+          <button className="input-field waves-effect waves-light btn" type="submit">
+            <i className="material-icons center">add</i>
+          </button>
+        </form>
+      );
+    } else {
+      return (
+        <div className="white-text" style={{textAlign: 'left'}}>
+          {this.renderContentWithLineBreak(content)}
+        </div>
+      );
+    }
   },
   render() {
-// style="bottom: 45px; right: 24px;"
-// width: 20px;
-//     height: 20px;
-//     line-height: 20px;
     return (
       <div className="card-panel blue lighten-3"
         onMouseEnter={this.mouseEnter}
         onMouseLeave={this.mouseLeave}>
-        <div ref="controlIcons" className=""
-          style={{float: 'right', display: 'none', listStyleType: 'none'}}>
-          <ul>
-            <li>
-              <a className="btn-floating red">
-                <i className="tiny material-icons">insert_chart</i>
-              </a>
-            </li>
-            <li>
-              <a className="btn-floating yellow darken-1">
-                <i className="tiny material-icons">format_quote</i>
-              </a>
-            </li>
-            <li>
-              <a className="btn-floating green">
-                <i className="tiny material-icons">publish</i>
-              </a>
-            </li>
-            <li>
-              <a className="btn-floating blue">
-                <i className="tiny material-icons">attach_file</i>
-              </a>
-            </li>
-          </ul>
+        {this.renderContentOrEditForm()}
+        <div id="quote-control-icons" className={this.state.isShowControlIcons && !this.state.isShowEditForm ? 'active' : ''}>
+          <i onClick={this.clickEditHandler} className="material-icons">mode_edit</i>
+          <i onClick={this.clickDeleteHandler} className="material-icons">delete</i>
         </div>
-        <span className="white-text">
-          {this.props.data.content}
-        </span>
       </div>
     );
   }

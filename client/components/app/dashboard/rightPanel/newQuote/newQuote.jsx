@@ -26,7 +26,8 @@ NewQuote = React.createClass({
         <form ref="quoteForm" className="col s12" onSubmit={this.newQuoteHandler}>
           <div className="col s11 offset-s1" style={{backgroundColor: 'rgba(80, 34, 255, 0.74)'}}>
             <div className="input-field col s9">
-              <textarea ref="quote" id="textarea1" className="materialize-textarea validate"></textarea>
+              <textarea cols="20" wrap="hard" 
+                ref="quote" id="textarea1" className="materialize-textarea validate"></textarea>
               <label ref="quoteLabel" className="right-align" htmlFor="textarea1">New Quote</label>
             </div>
             <button className="input-field col s2 waves-effect waves-light btn" type="submit">
